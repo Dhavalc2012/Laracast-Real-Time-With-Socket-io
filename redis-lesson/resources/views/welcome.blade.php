@@ -65,31 +65,35 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
-                    @endif
-                </div>
-            @endif
+            <div id="block">
+                <h1>New Users Signed Up</h1>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+                <ul>
+                        <li v-for="user in users" track-by="$index" v-text="user"></li>
+                </ul>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
             </div>
-        </div>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+            <script>
+                var socket = io("http://127.0.0.1:3000");
+                new Vue({
+                    el :"#block",
+                    data: {
+                        users: []
+                      },
+                    created : function(){
+                        var vm = this;
+                         socket.on('test-channel:UserSignedUp',function(data){
+                             console.log(data.username);
+                             vm.$data.users.push(data.username);
+                             console.log( vm.$data.users);
+                         });
+                    }
+                    
+                });
+            </script>
     </body>
+
 </html>
