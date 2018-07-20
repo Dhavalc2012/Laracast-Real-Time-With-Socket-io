@@ -11,6 +11,7 @@
 |
 */
 use Illuminate\Support\Facades\Redis;
+use App\Events\UserSignedUp;
 
 
 
@@ -39,6 +40,6 @@ Route::get('/', function(){
 
    // return 'Done';
     //3. Use socket.io to emit to all clients.
-
-    return view('welcome');
+    event(new UserSignedUp('JohnDoe'));
+        return view('welcome');
 });

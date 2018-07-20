@@ -10,10 +10,13 @@ redis.subscribe('test-channel');
 
 redis.on('message',function (channel,message) {
    message = JSON.parse(message);
-   console.log(message.data.username);
-   console.log(channel + ':' + message.event);
+//    console.log(message.data.username);
+//    console.log(channel + ':' + message.event);
 
-   io.emit(channel + ':' + message.event, message.data);
+    io.emit(channel + ':' + message.event, message.data);
+
+console.log(channel,message);
+
 });
 
 

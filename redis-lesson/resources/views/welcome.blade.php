@@ -85,10 +85,10 @@
                       },
                     created : function(){
                         var vm = this;
-                         socket.on('test-channel:UserSignedUp',function(data){
-                             console.log(data.username);
+                         socket.on('test-channel:App\\Events\\UserSignedUp',function(data){
+                             console.log(data);
                              vm.$data.users.push(data.username);
-                             console.log( vm.$data.users);
+                          //   console.log( vm.$data.users);
                          });
                     }
                     
